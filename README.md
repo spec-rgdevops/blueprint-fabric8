@@ -8,4 +8,4 @@ Performance-aware devops blueprint environment based on RedHat's fabric8
 4. Clone this repository or download `fabric8.yml` to an arbitrary directory.
 5. Configure the IP address of the machine in line 7 of `fabric8.yml`.
 6. Run `ansible-playbook -c local fabric8.yml`
-7. Fabric8 is then accessible at `http://fabric8.<ip-address-from-step-4>.xip.io`
+7. Fabric8 is then accessible at `http://fabric8.<ip-address-from-step-5>.xip.io`
