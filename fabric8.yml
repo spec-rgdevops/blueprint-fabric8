@@ -1,0 +1,50 @@
+---
+
+# IMPORTANT: run '''ansible-galaxy install angstwad.docker_ubuntu''' before running this playbook
+
+- name: Install fabric8 from scratch
+  vars:
+   - domain: 192.168.209.158.xip.io
+   - openshiftversion: v1.3.0-alpha.1
+   - ocarchivename: openshift-origin-server-v1.3.0-alpha.1-6e83535-linux-64bit
+   - gofabric8version: 0.4.31
+   - docker_opts: --selinux-enabled -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375 --insecure-registry 172.30.0.0/16
+  #configure this if you do not want to set it up on at localhost
+  hosts: localhost
+  connection: localhost
+  
+  roles:
+   - angstwad.docker_ubuntu
+   
+  tasks:
+   # wiping all docker container
+   - name: stop docker container
+     shell: "docker kill $(sudo docker ps -a -q)"
+     ignore_errors: yes
+   - name: clean docker container
+     shell: "docker rm $(sudo docker ps -a -q)"
+     ignore_errors: yes
+   
+   #downloading, runnning and configuring openshift origin
+   - name: download openshift
+     unarchive: src=https://github.com/openshift/origin/releases/download/{{openshiftversion}}/{{ocarchivename}}.tar.gz dest=/usr/bin/ copy=no
+   - name: Start openshift
+     shell: "/usr/bin/{{ocarchivename}}/oc cluster up --routing-suffix={{ domain }}  --public-hostname={{ domain }}"
+   - name: Add --cors-allowed-origins=.* to the config
+     lineinfile: dest=/var/lib/origin/openshift.local.config/master/master-config.yaml regexp="^corsAllowedOrigins:" insertafter="^corsAllowedOrigins:" line="corsAllowedOrigins:\n- .*"
+   - name: stop openshift
+     shell: "/usr/bin/{{ocarchivename}}/oc cluster down"
+   - name: restart openshift
+     shell: "/usr/bin/{{ocarchivename}}/oc cluster up --use-existing-config"
+   - name: login as system:admin
+     shell: "/usr/bin/{{ocarchivename}}/oc login -u system:admin"
+   - name: add cluster role to user
+     shell: "/usr/bin/{{ocarchivename}}/oadm policy add-cluster-role-to-user cluster-admin admin"
+   
+   #download and run gofabric8
+   - name: download gofabric8
+     unarchive: src=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-{{gofabric8version}}-linux-amd64.tar.gz dest=/usr/bin/ copy=no
+   - name: run gofabric8
+     shell: "gofabric8 deploy -y --domain={{ domain }} --app=cd-pipeline"
+   - name: run gofabric8 secrets
+     shell: "gofabric8 secrets -y"
