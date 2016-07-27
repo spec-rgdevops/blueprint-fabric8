@@ -17,13 +17,10 @@
   tasks:
    - name: download get docker
      get_url: url=https://get.docker.com/ dest=getdocker.sh
-	 
    - name: exec get docker
      shell: getdocker.sh
-	 
    - name: Set docker daemon options
      copy: content="DOCKER_OPTS=\"{{ docker_opts.rstrip('\n') }}\"" dest=/etc/default/docker owner=root group=root mode=0644
-	 
    - name: Start docker daemon
      service: name=docker state=started
    
