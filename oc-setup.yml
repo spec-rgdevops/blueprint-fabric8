@@ -16,7 +16,7 @@
   
   tasks:
    - name: download get docker
-     get_url: url=https://get.docker.com/ dest=/temp/getdocker.sh
+     get_url: url=https://get.docker.com/ dest=/root/getdocker.sh
    - name: exec get docker
      shell: getdocker.sh
    - name: Set docker daemon options
