@@ -17,6 +17,8 @@
   tasks:
    - name: download get docker
      get_url: url=https://get.docker.com/ dest=/root/getdocker.sh
+   - name: set permissions to exec
+     file: path=/root/getdocker.sh mode=755
    - name: exec get docker
      shell: ./root/getdocker.sh
    - name: Set docker daemon options
