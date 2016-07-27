@@ -1,4 +1,11 @@
 ---
+- name: prepare hosts
+  hosts: OSEv3
+     
+  pre_tasks:
+   - name: 'install python2'
+     raw: sudo apt-get -y install python-simplejson
+
 - name: Install docker on all nodes
   vars:
    - docker_opts: --selinux-enabled -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375 --insecure-registry 172.30.0.0/16
@@ -6,10 +13,6 @@
   
   roles:
    - angstwad.docker_ubuntu
-   
-  pre_tasks:
-   - name: 'install python2'
-     raw: sudo apt-get -y install python-simplejson
    
 - include: ../openshift-ansible/playbooks/byo/config.yml
 
