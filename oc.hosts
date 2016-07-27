@@ -19,8 +19,8 @@ openshift_master_default_subdomain=apps.192.168.209.158.xip.io
 openshift_release=v1.2.1
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
-#openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
-openshift_master_identity_providers=[{'name': 'my_allow_provider', 'challenge': 'true', 'login': 'true', 'provider': {'apiVersion': 'v1', 'kind': 'AllowAllPasswordIdentityProvider'}}]
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+#openshift_master_identity_providers=[{'name': 'my_allow_provider', 'challenge': 'true', 'login': 'true', 'provider': {'apiVersion': 'v1', 'kind': 'AllowAllPasswordIdentityProvider'}}]
 
 # host group for masters
 [masters]
