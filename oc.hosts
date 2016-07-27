@@ -29,4 +29,3 @@ openshift_master_identity_providers=[{'name': 'my_allow_provider', 'challenge': 
 192.168.209.158.xip.io openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
 192.168.209.240.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
 192.168.209.241.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
-      
