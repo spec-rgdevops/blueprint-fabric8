@@ -16,7 +16,7 @@ deployment_type=origin
 # default subdoamin
 openshift_master_default_subdomain=apps.192.168.209.158.xip.io
 # version is needed for installation with origin:
-openshift_release=v1.2
+openshift_release=v1.2.1
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
 #openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
