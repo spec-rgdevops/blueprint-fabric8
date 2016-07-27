@@ -1,0 +1,26 @@
+---
+- name: Install docker on all nodes
+  vars:
+   - docker_opts: --selinux-enabled -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375 --insecure-registry 172.30.0.0/16
+  hosts: OSEv3
+  
+  roles:
+   - angstwad.docker_ubuntu
+   
+- include: ../openshift-ansible/playbooks/byo/config.yml
+
+- name: Install fabric8
+  vars:
+   - gofabric8version: 0.4.31
+  hosts: masters
+  tasks:
+   - name: login as system:admin
+     shell: "oc login -u system:admin"
+   - name: add cluster role to user
+     shell: "oadm policy add-cluster-role-to-user cluster-admin admin"
+   - name: download gofabric8
+     unarchive: src=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-{{gofabric8version}}-linux-amd64.tar.gz dest=/usr/bin/ copy=no
+   - name: run gofabric8
+     shell: "gofabric8 deploy -y --domain={{ openshift_master_default_subdomain }} --app=cd-pipeline"
+   - name: run gofabric8 secrets
+     shell: "gofabric8 secrets -y"
