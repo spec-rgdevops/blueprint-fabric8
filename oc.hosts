@@ -22,7 +22,7 @@ openshift_master_identity_providers=[{'name': 'my_allow_provider', 'challenge': 
 
 # host group for masters
 [masters]
-192.168.209.158.xip.io
+192.168.209.158.xip.io openshift_hostname=192.168.209.158.xip.io
 
 # host group for nodes, includes region info
 [nodes]
