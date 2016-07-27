@@ -1,11 +1,31 @@
 ---
+#required: RHEL, ansible>2.1
+
+#- name: Install docker on all nodes
+#  vars:
+#   - docker_opts: --selinux-enabled -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375 --insecure-registry 172.30.0.0/16
+#  hosts: OSEv3
+  
+#  roles:
+#   - angstwad.docker_ubuntu
+
 - name: Install docker on all nodes
   vars:
    - docker_opts: --selinux-enabled -H unix://var/run/docker.sock -H tcp://0.0.0.0:2375 --insecure-registry 172.30.0.0/16
   hosts: OSEv3
   
-  roles:
-   - angstwad.docker_ubuntu
+  tasks:
+   - name: download get docker
+     get_url: url=https://get.docker.com/ dest=getdocker.sh
+	 
+   - name: exec get docker
+     shell: getdocker.sh
+	 
+   - name: Set docker daemon options
+     copy: content="DOCKER_OPTS=\"{{ docker_opts.rstrip('\n') }}\"" dest=/etc/default/docker owner=root group=root mode=0644
+	 
+   - name: Start docker daemon
+     service: name=docker state=started
    
 - include: ../openshift-ansible/playbooks/byo/config.yml
 
