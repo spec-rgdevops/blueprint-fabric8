@@ -26,7 +26,16 @@
 #     copy: content="DOCKER_OPTS=\"{{ docker_opts.rstrip('\n') }}\"" dest=/etc/default/docker owner=root group=root mode=0644
 #   - name: Start docker daemon
 #     service: name=docker state=started
-   
+
+- name: prepare installation
+  hosts: OSEv3
+  
+  tasks:
+   - name: install NetworkManager
+     yum: name=NetworkManager state=latest
+   - name: run NetworkManager
+     service: name=NetworkManager state=started
+
 - include: ../openshift-ansible/playbooks/byo/config.yml
 
 - name: Install fabric8
