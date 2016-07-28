@@ -15,7 +15,7 @@ deployment_type=origin
 openshift_release=v1.2.1
 
 # use containerized installation
-#containerized=true
+containerized=true
 
 # default subdoamin
 openshift_master_default_subdomain=apps.192.168.209.158.xip.io
