@@ -8,7 +8,7 @@ nodes
 # SSH user, this user should allow ssh based auth without requiring a password
 ansible_ssh_user=centos
 # use containerized installation
-containerized=true
+#containerized=true
 # do sudo
 ansible_sudo=true
 # use openshift origin
