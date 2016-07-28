@@ -43,10 +43,6 @@
    - gofabric8version: 0.4.31
   hosts: masters
   tasks:
-   - name: login as system:admin
-     shell: "oc login -u system:admin"
-   - name: add cluster role to user
-     shell: "oadm policy add-cluster-role-to-user cluster-admin admin"
    - name: download gofabric8
      unarchive: src=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-{{gofabric8version}}-linux-amd64.tar.gz dest=/usr/bin/ copy=no
    - name: run gofabric8
