@@ -18,7 +18,7 @@ openshift_release=v1.2.1
 containerized=true
 
 # default subdoamin
-openshift_master_default_subdomain=oc.192.168.209.158.xip.io
+openshift_master_default_subdomain=oc.master.example.com
 
 # Force setting of system hostname when configuring OpenShift
 # This works around issues related to installations that do not have valid dns
@@ -40,15 +40,15 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 #openshift_master_htpasswd_file=<path to local pre-generated htpasswd file>
 #openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'challenge': 'true', 'kind': 'AllowAllPasswordIdentityProvider'}]
 
-openshift_master_cluster_hostname=oc.192.168.209.158.xip.io
-openshift_master_cluster_public_hostname=oc.192.168.209.158.xip.io
+openshift_master_cluster_hostname=oc.master.example.com
+openshift_master_cluster_public_hostname=oc.master.example.com
 
 # host group for masters
 [masters]
-192.168.209.158.xip.io openshift_hostname=192.168.209.158.xip.io
+master.example.com openshift_hostname=master.example.com
 
 # host group for nodes, includes region info
 [nodes]
-192.168.209.158.xip.io openshift_hostname=192.168.209.158.xip.io openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true
-192.168.209.240.xip.io openshift_hostname=192.168.209.240.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
-192.168.209.241.xip.io openshift_hostname=192.168.209.241.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
+master.example.com openshift_hostname=master.example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true
+node1.example.com openshift_hostname=node1.example.com openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+node2.example.com openshift_hostname=node2.example.com openshift_node_labels="{'region': 'primary', 'zone': 'west'}"

@@ -36,7 +36,7 @@
    - name: run NetworkManager
      service: name=NetworkManager state=started
 
-- include: ../openshift-ansible/playbooks/byo/config.yml
+- include: openshift-ansible/playbooks/byo/config.yml
 
 - name: Install fabric8
   vars:
