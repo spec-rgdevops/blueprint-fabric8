@@ -18,7 +18,7 @@ openshift_release=v1.2.1
 containerized=true
 
 # default subdoamin
-openshift_master_default_subdomain=apps.192.168.209.158.xip.io
+openshift_master_default_subdomain=oc.192.168.209.158.xip.io
 
 # Force setting of system hostname when configuring OpenShift
 # This works around issues related to installations that do not have valid dns
@@ -49,6 +49,6 @@ openshift_master_cluster_public_hostname=oc.192.168.209.158.xip.io
 
 # host group for nodes, includes region info
 [nodes]
-192.168.209.158.xip.io openshift_hostname=192.168.209.158.xip.io openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+192.168.209.158.xip.io openshift_hostname=192.168.209.158.xip.io openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true
 192.168.209.240.xip.io openshift_hostname=192.168.209.240.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
 192.168.209.241.xip.io openshift_hostname=192.168.209.241.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
