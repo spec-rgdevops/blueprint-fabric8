@@ -28,4 +28,4 @@ To use fabric8 you can now log into the master node via SSH and setup a user:
 
 To add cluster-admin rights to this user:
 
-	$ oadm policy add-cluster-role-to-user cluster-admin admin
+	$ oadm policy add-cluster-role-to-user cluster-admin <username>
