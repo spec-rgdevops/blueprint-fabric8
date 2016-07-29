@@ -6,27 +6,49 @@ nodes
 # Set variables common for all OSEv3 hosts
 [OSEv3:vars]
 # SSH user, this user should allow ssh based auth without requiring a password
-ansible_user=ubuntu
-# use containerized installation
-containerized=true
+ansible_ssh_user=centos
 # do sudo
 ansible_sudo=true
-# use openshift origin
+
+# use openshift origin v1.2.1
 deployment_type=origin
+openshift_release=v1.2.1
+
+# use containerized installation
+containerized=true
+
 # default subdoamin
-openshift_master_default_subdomain=apps.192.168.209.158.xip.io
+openshift_master_default_subdomain=oc.master.example.com
+
+# Force setting of system hostname when configuring OpenShift
+# This works around issues related to installations that do not have valid dns
+# entries for the interfaces attached to the host.
+openshift_set_hostname=True
+
+# openshift-ansible will wait indefinitely for your input when it detects that the
+# value of openshift_hostname resolves to an IP address not bound to any local
+# interfaces. This mis-configuration is problematic for any pod leveraging host
+# networking and liveness or readiness probes.
+# Setting this variable to true will override that check.
+#openshift_override_hostname_check=true
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
-#openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
-openshift_master_identity_providers=[{'name': 'my_allow_provider', 'challenge': 'true', 'login': 'true', 'provider': {'apiVersion': 'v1', 'kind': 'AllowAllPasswordIdentityProvider'}}]
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+# Defining htpasswd users
+#openshift_master_htpasswd_users={'user1': '<pre-hashed password>', 'user2': '<pre-hashed password>'
+# or
+#openshift_master_htpasswd_file=<path to local pre-generated htpasswd file>
+#openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'challenge': 'true', 'kind': 'AllowAllPasswordIdentityProvider'}]
+
+openshift_master_cluster_hostname=oc.master.example.com
+openshift_master_cluster_public_hostname=oc.master.example.com
 
 # host group for masters
 [masters]
-192.168.209.158.xip.io
+master.example.com openshift_hostname=master.example.com
 
 # host group for nodes, includes region info
 [nodes]
-192.168.209.158.xip.io openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
-192.168.209.240.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
-192.168.209.241.xip.io openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
-      
+master.example.com openshift_hostname=master.example.com openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true
+node1.example.com openshift_hostname=node1.example.com openshift_node_labels="{'region': 'primary', 'zone': 'east'}"
+node2.example.com openshift_hostname=node2.example.com openshift_node_labels="{'region': 'primary', 'zone': 'west'}"
