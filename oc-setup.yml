@@ -12,11 +12,11 @@
 
 - name: Install fabric8
   vars:
-   - gofabric8version: 0.4.31
+   - gofabric8version: 0.4.66
   hosts: masters
   tasks:
    - name: download gofabric8
-     unarchive: src=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-{{gofabric8version}}-linux-amd64.tar.gz dest=/usr/bin/ copy=no
+     unarchive: src=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-linux-amd64 dest=/usr/bin/ copy=no
    - name: run gofabric8
      shell: "gofabric8 deploy -y --domain={{ openshift_master_default_subdomain }} --app=cd-pipeline"
    - name: run gofabric8 secrets
