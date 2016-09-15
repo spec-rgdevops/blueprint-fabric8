@@ -16,7 +16,10 @@
   hosts: masters
   tasks:
    - name: download gofabric8
-     unarchive: src=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-linux-amd64 dest=/usr/bin/ copy=no
+     get_url:
+       url=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-linux-amd6
+       dest=/usr/bin/gofabric8
+       force: yes
    - name: run gofabric8
      shell: "gofabric8 deploy -y --domain={{ openshift_master_default_subdomain }} --app=cd-pipeline"
    - name: run gofabric8 secrets
