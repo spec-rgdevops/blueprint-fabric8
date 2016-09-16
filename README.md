@@ -3,6 +3,8 @@ Performance-aware devops blueprint environment based on RedHat's fabric8
 
 This repository contains an ansible playbook and an example host-file to setup an OpenShift cluster (this is based on [https://github.com/openshift/openshift-ansible](https://github.com/openshift/openshift-ansible "https://github.com/openshift/openshift-ansible") and deploy fabric8 on top of that.
 
+The aim of this playbook is to setup a cluster with multiple nodes. If you want to setup a local single-node cluster as a testing environment, you should consider using fabric8 with minishift (cf. [http://fabric8.io/guide/getStarted/minishift.html](http://fabric8.io/guide/getStarted/minishift.html)).
+
 ## Requirements
 
 - Ansible >v2.1

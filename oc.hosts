@@ -17,6 +17,10 @@ openshift_release=v1.2.1
 # use containerized installation
 containerized=true
 
+# Items added, as is, to end of /etc/sysconfig/docker OPTIONS
+# Default value: "--log-driver=json-file --log-opt max-size=50m"
+#openshift_docker_options="--dns=8.8.8.8 --dns-search=example.com"
+
 # default subdoamin
 openshift_master_default_subdomain=oc.master.example.com
 
