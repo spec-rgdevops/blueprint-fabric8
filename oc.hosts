@@ -10,16 +10,16 @@ ansible_ssh_user=centos
 # do sudo
 ansible_sudo=true
 
-# use openshift origin v1.2.1
+# use openshift origin v1.3.0
 deployment_type=origin
-openshift_release=v1.2.1
+openshift_release=v1.3.0
 
 # use containerized installation
 containerized=true
 
 # Items added, as is, to end of /etc/sysconfig/docker OPTIONS
 # Default value: "--log-driver=json-file --log-opt max-size=50m"
-#openshift_docker_options="--dns=8.8.8.8 --dns-search=example.com"
+#openshift_docker_options="--dns=8.8.8.8 --dns-search=."
 
 # default subdoamin
 openshift_master_default_subdomain=oc.master.example.com
@@ -27,14 +27,14 @@ openshift_master_default_subdomain=oc.master.example.com
 # Force setting of system hostname when configuring OpenShift
 # This works around issues related to installations that do not have valid dns
 # entries for the interfaces attached to the host.
-openshift_set_hostname=True
+#openshift_set_hostname=True
 
 # openshift-ansible will wait indefinitely for your input when it detects that the
 # value of openshift_hostname resolves to an IP address not bound to any local
 # interfaces. This mis-configuration is problematic for any pod leveraging host
 # networking and liveness or readiness probes.
 # Setting this variable to true will override that check.
-#openshift_override_hostname_check=true
+openshift_override_hostname_check=true
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]

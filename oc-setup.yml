@@ -1,7 +1,7 @@
 ---
 - name: prepare installation
   hosts: OSEv3
-  
+
   tasks:
    - name: install NetworkManager
      yum: name=NetworkManager state=latest
@@ -12,12 +12,12 @@
 
 - name: Install fabric8
   vars:
-   - gofabric8version: 0.4.67
+   - gofabric8version: 0.4.73
   hosts: masters
   tasks:
    - name: download gofabric8
      get_url:
-       url=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-linux-amd6
+       url=https://github.com/fabric8io/gofabric8/releases/download/v{{gofabric8version}}/gofabric8-linux-amd64
        dest=/usr/bin/gofabric8
        force=yes
        mode=744
